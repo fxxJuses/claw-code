@@ -204,11 +204,27 @@ impl ApiError {
 impl Display for ApiError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::MissingCredentials { provider, env_vars } => write!(
-                f,
-                "missing {provider} credentials; export {} before calling the {provider} API",
-                env_vars.join(" or ")
-            ),
+            Self::MissingCredentials { provider, env_vars } => {
+                write!(
+                    f,
+                    "missing {provider} credentials; export {} before calling the {provider} API",
+                    env_vars.join(" or ")
+                )?;
+                if cfg!(target_os = "windows") {
+                    if let Some(primary) = env_vars.first() {
+                        write!(
+                            f,
+                            " (on Windows, environment variables set in PowerShell only persist for the current session; use `setx {primary} <value>` to make it permanent, then open a new terminal, or place a `.env` file containing `{primary}=<value>` in the current working directory)"
+                        )?;
+                    } else {
+                        write!(
+                            f,
+                            " (on Windows, environment variables set in PowerShell only persist for the current session; use `setx` to make them permanent, then open a new terminal, or place a `.env` file in the current working directory)"
+                        )?;
+                    }
+                }
+                Ok(())
+            }
             Self::ContextWindowExceeded {
                 model,
                 estimated_input_tokens,
