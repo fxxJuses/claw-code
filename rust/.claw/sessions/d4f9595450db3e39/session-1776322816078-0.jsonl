@@ -1,0 +1,3 @@
+{"created_at_ms":1776322816077,"model":"claude-opus-4-6","session_id":"session-1776322816078-0","type":"session_meta","updated_at_ms":1776322817642,"version":1,"workspace_root":"/root/workspace/Agent/claw-code/rust"}
+{"message":{"blocks":[{"text":"回复 ok，然后告诉我，你是什么模型？","type":"text"}],"role":"user"},"type":"message"}
+{"message":{"blocks":[{"text":"ok。\n\n我是 Claude Opus 4.6，由 Anthropic 开发的大型语言模型。我可以帮助你完成软件工程任务，包括代码分析、编写、调试等。","type":"text"}],"role":"assistant","usage":{"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"input_tokens":5746,"output_tokens":37}},"type":"message"}
